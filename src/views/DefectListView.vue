@@ -46,7 +46,15 @@ function assign() {
       <v-select v-model="owner" :items="['工务一工区', '工务二工区', '桥隧工区']" density="compact" variant="outlined" hide-details />
       <v-btn color="primary" :disabled="!selected.length" @click="assign">批量派工 {{ selected.length ? `(${selected.length})` : '' }}</v-btn>
     </div>
-    <div class="query-band"><span>{{ loading ? 'GraphQL数据读取中' : `GraphQL已返回${segmentResult?.segments?.length ?? 0}个区段` }}</span><span>离线补录会保留记录轮次</span></div>
+    <div class="query-band">
+      <span>{{ loading ? 'GraphQL数据读取中' : `GraphQL已返回${segmentResult?.segments?.length ?? 0}个区段` }}</span>
+      <RouterLink to="/sync" class="sync-entry">
+        本机待补传 <b>{{ store.pendingSync.length }}</b>
+        <em v-if="store.conflictSync.length" class="warn">冲突 {{ store.conflictSync.length }}</em>
+        <em v-if="store.blockedSync.length" class="err">限速拦截 {{ store.blockedSync.length }}</em>
+        <i>去补传 →</i>
+      </RouterLink>
+    </div>
     <v-data-table v-model="selected" :headers="headers" :items="store.filtered" item-value="id" show-select density="compact" :items-per-page="12">
       <template #item.value="{ item }">{{ item.measuredValue }} / {{ item.limit }}</template>
       <template #item.severity="{ item }"><v-chip size="small" :color="item.severity === '一级' ? 'error' : item.severity === '二级' ? 'warning' : 'default'">{{ item.severity }}</v-chip></template>
@@ -60,4 +68,10 @@ function assign() {
 
 <style scoped>
 .query-band { display: flex; justify-content: space-between; font-size: 11px; color: #718080; margin: 0 0 10px; }
+.sync-entry { display: flex; align-items: center; gap: 8px; color: #315b72; text-decoration: none; background: #eef3f4; border: 1px solid #d5dee0; padding: 4px 10px; border-radius: 3px; }
+.sync-entry b { color: #315b72; }
+.sync-entry em { font-style: normal; }
+.sync-entry em.warn { color: #a7812f; }
+.sync-entry em.err { color: #b84239; }
+.sync-entry i { font-style: normal; text-decoration: underline; }
 </style>

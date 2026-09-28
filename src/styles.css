@@ -6,6 +6,8 @@ body { margin: 0; min-width: 1200px; background: #edf1f2; }
 .brand { display: flex; align-items: center; gap: 10px; padding-bottom: 22px; border-bottom: 1px solid #415364; }.brand > strong { width: 40px; height: 40px; display: grid; place-items: center; background: #c69c3f; color: #25394a; border-radius: 4px; font-size: 19px; }
 .brand b, .brand span { display: block; }.brand b { font-size: 14px; }.brand span { font-size: 10px; color: #a9b9c4; margin-top: 4px; }
 nav { display: grid; gap: 6px; padding-top: 18px; } nav a { color: #a9bac4; text-decoration: none; padding: 11px 12px; display: flex; justify-content: space-between; border-radius: 4px; font-size: 14px; } nav a.router-link-active { color: white; background: #344f63; border-left: 3px solid #c69c3f; } nav small { color: #8297a5; font-size: 10px; }
+nav small em { font-style: normal; margin-left: 6px; } nav small em.warn { color: #e0b65f; } nav small em.err { color: #e07a6e; }
+nav a.sync-link.router-link-active { background: #4a3f23; }
 .aside-data { margin-top: auto; padding: 14px; background: #1c3040; display: grid; gap: 6px; }.aside-data span, .aside-data small { color: #8ea5b3; font-size: 10px; }.aside-data strong { font-size: 12px; }
 .shell-main { margin-left: 238px !important; min-width: 0; }
 .top { height: 78px; padding: 13px 28px; background: white; border-bottom: 1px solid #dbe2e3; display: flex; justify-content: space-between; align-items: center; }.top span, .top small { display: block; color: #748181; font-size: 10px; }.top h1 { margin: 3px 0 0; font-size: 20px; }.top > div:last-child { text-align: right; }.top > div:last-child strong { font-size: 12px; }

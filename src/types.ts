@@ -66,3 +66,37 @@ export interface AuditEntry {
   detail: string
   createdAt: string
 }
+
+export type SyncStatus = '待补传' | '已补传' | '待确认'
+export type SyncKind = '整治记录' | '复测读数' | '限速更新'
+
+export type SyncPayload =
+  | { kind: '整治记录'; action: RectificationAction }
+  | { kind: '复测读数'; retest: RetestResult }
+  | { kind: '限速更新'; speedLimit: number; temporarySpeedLimit: number | null; operator: string }
+
+export interface ConflictSnapshot {
+  defectVersion: number
+  status: DefectStatus
+  measuredValue: number
+  lastAction: string
+  lastRetest: string
+  capturedAt: string
+}
+
+export interface SyncRecord {
+  id: string
+  defectId: string
+  segmentId?: string
+  kind: SyncKind
+  payload: SyncPayload
+  operator: string
+  collectedAt: string
+  baseVersion: number
+  status: SyncStatus
+  conflictSnapshot?: ConflictSnapshot
+  conflictDetail?: string
+  blockReason?: string
+  resolution?: '接受现场值' | '保留现状'
+  appliedAt?: string
+}

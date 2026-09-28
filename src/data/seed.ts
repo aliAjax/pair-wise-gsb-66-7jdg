@@ -1,4 +1,4 @@
-import type { AuditEntry, Defect, GeometryMeasurement, TrackSegment } from '../types'
+import type { AuditEntry, Defect, GeometryMeasurement, SyncRecord, TrackSegment } from '../types'
 
 const measurements = (start: number, values: number[]): GeometryMeasurement[] => values.map((value, index) => ({
   id: `GM-${start + index * 200}`,
@@ -37,4 +37,37 @@ export const seedAudit: AuditEntry[] = [
   { id: 'A-1', entityId: 'SEG-K102', action: '导入检测数据', operator: 'GJ-6轨检车', detail: '导入K102+000至K104+800共14个采样点', createdAt: '2026-09-29T02:00:00' },
   { id: 'A-2', entityId: 'GD-260929-01', action: '批量派工', operator: '调度员 方林', detail: '超限点分配至工务一工区，要求24小时内整治', createdAt: '2026-09-29T04:15:00' },
   { id: 'A-3', entityId: 'GD-260929-02', action: '提交复测', operator: '王磊', detail: '第1轮复测未通过，重新进入整治', createdAt: '2026-09-29T11:30:00' }
+]
+
+export const seedSyncQueue: SyncRecord[] = [
+  {
+    id: 'SYNC-0928-01', defectId: 'GD-260928-07', kind: '整治记录', operator: '陈伟',
+    payload: { kind: '整治记录', action: { method: '垫板调整', note: '隧道内离线记录：复紧扣板并复检连续垫板', operator: '陈伟', recordedAt: '2026-09-28T08:35:00' } },
+    collectedAt: '2026-09-28T08:35:00', baseVersion: 4, status: '待补传'
+  },
+  {
+    id: 'SYNC-0929-02', defectId: 'GD-260929-02', kind: '复测读数', operator: '王磊',
+    payload: { kind: '复测读数', retest: { round: 2, passed: true, measuredValue: 7.6, limit: 8.0, note: '打磨后离线复测，现场判定合格', tester: '王磊', testedAt: '2026-09-29T15:40:00' } },
+    collectedAt: '2026-09-29T15:40:00', baseVersion: 3, status: '待补传'
+  },
+  {
+    id: 'SYNC-0929-03', defectId: 'GD-260929-01', kind: '整治记录', operator: '李海',
+    payload: { kind: '整治记录', action: { method: '捣固', note: '隧道内离线补录：二次捣固并改道，现场实测1445', operator: '李海', recordedAt: '2026-09-29T16:05:00' } },
+    collectedAt: '2026-09-29T16:05:00', baseVersion: 3, status: '待补传'
+  },
+  {
+    id: 'SYNC-0929-04A', defectId: 'SEG-K102', segmentId: 'SEG-K102', kind: '限速更新', operator: '调度员 方林',
+    payload: { kind: '限速更新', speedLimit: 160, temporarySpeedLimit: 160, operator: '调度员 方林' },
+    collectedAt: '2026-09-29T16:30:00', baseVersion: 4, status: '待补传'
+  },
+  {
+    id: 'SYNC-0929-04', defectId: 'GD-260929-01', kind: '复测读数', operator: '王磊',
+    payload: { kind: '复测读数', retest: { round: 1, passed: true, measuredValue: 1445, limit: 1446, note: '隧道口离线复测，轨距回落至限值内', tester: '王磊', testedAt: '2026-09-29T16:39:00' } },
+    collectedAt: '2026-09-29T16:39:00', baseVersion: 4, status: '待补传'
+  },
+  {
+    id: 'SYNC-0929-05', defectId: 'SEG-K102', segmentId: 'SEG-K102', kind: '限速更新', operator: '调度员 方林',
+    payload: { kind: '限速更新', speedLimit: 160, temporarySpeedLimit: null, operator: '调度员 方林' },
+    collectedAt: '2026-09-29T16:40:00', baseVersion: 4, status: '待补传'
+  }
 ]

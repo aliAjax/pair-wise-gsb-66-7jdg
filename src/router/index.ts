@@ -3,6 +3,7 @@ import DefectListView from '../views/DefectListView.vue'
 import TrackDetailView from '../views/TrackDetailView.vue'
 import WorkOrderView from '../views/WorkOrderView.vue'
 import AuditView from '../views/AuditView.vue'
+import SyncCenterView from '../views/SyncCenterView.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -10,6 +11,7 @@ export const router = createRouter({
     { path: '/', name: 'defects', component: DefectListView },
     { path: '/track/:id?', name: 'track', component: TrackDetailView, props: true },
     { path: '/work-orders/:id?', name: 'workOrders', component: WorkOrderView, props: true },
+    { path: '/sync', name: 'sync', component: SyncCenterView },
     { path: '/audit', name: 'audit', component: AuditView }
   ]
 })
